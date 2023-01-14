@@ -4,8 +4,6 @@ import pandas as pd
 import numpy as np
 import time
 import datetime
-import csv
-import schedule
 import smtplib
 
 # API and Account Setup
@@ -75,6 +73,21 @@ def timestamp():
     ts = time.time()
     st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     return st
+
+
+def sleep_until_tomorrow(target_time):   # Target time: 12:00:00 AM -> target_time = datetime.time(12, 0, 0)
+    # Get the current time
+    now = datetime.datetime.now()
+
+    # Calculate the time difference between now and the target time tomorrow
+    tomorrow = now + datetime.timedelta(days=1)
+    target_time = datetime.datetime.combine(tomorrow, target_time)
+    time_diff = target_time - now
+    seconds_diff = time_diff.total_seconds()
+
+    # Sleep for the calculated time difference
+    print("sleep...")
+    time.sleep(seconds_diff)
 
 # Technical Analysis
 def AMA_chart(df, AMA_n_1, AMA_fast_1, AMA_slow_1, AMA_n_2, AMA_fast_2, AMA_slow_2, DC_open_period, DC_close_period, ATR_period):
