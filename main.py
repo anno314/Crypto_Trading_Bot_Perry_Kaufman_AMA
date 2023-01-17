@@ -71,6 +71,11 @@ def strategy_AMA(asset_dict, test_order, open_position):
                     # Sleep
                     target_time = datetime.time(8, 0, 0)
                     helpfunctions.sleep_until_tomorrow(target_time)
+                    print(f'Time Stamp: ' + str(helpfunctions.timestamp()))
+                    # Mail update
+                    helpfunctions.send_mail('Trading Bot is active')
+                    # Account update
+                    helpfunctions.print_account_balance(client)
         else:
             while open_position:
                 df = helpfunctions.try_import_daily_data(client, asset)  # Try to download latest daily price data from binance
@@ -107,6 +112,11 @@ def strategy_AMA(asset_dict, test_order, open_position):
                 # Sleep
                 target_time = datetime.time(8, 0, 0)
                 helpfunctions.sleep_until_tomorrow(target_time)
+                print(f'Time Stamp: ' + str(helpfunctions.timestamp()))
+                # Mail update
+                helpfunctions.send_mail('Trading Bot is active')
+                # Account update
+                helpfunctions.print_account_balance(client)
 
     # Get the current time
     now = datetime.datetime.now()
@@ -118,7 +128,12 @@ def strategy_AMA(asset_dict, test_order, open_position):
     # Sleep
     target_time = datetime.time(8, 0, 0)
     helpfunctions.sleep_until_tomorrow(target_time)
+    print(f'Time Stamp: ' + str(helpfunctions.timestamp()))
+    # Mail update
+    helpfunctions.send_mail('Trading Bot is active')
+    # Account update
+    helpfunctions.print_account_balance(client)
 
 # RUN BOT
 while True:
-    strategy_AMA({'BTCUSDT': ('BTC', 200, 0.0005, 0.00001)}, True, False)
+    strategy_AMA({'BTCUSDT': ('BTC', 0.001)}, False, False)

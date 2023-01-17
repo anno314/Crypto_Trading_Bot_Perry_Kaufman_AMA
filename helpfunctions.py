@@ -166,12 +166,17 @@ def AMA_chart(df, AMA_n_1, AMA_fast_1, AMA_slow_1, AMA_n_2, AMA_fast_2, AMA_slow
 
 # Close and open a positon
 def try_open_position(client, asset_dict, asset, df, test_order):
+
+    # Old version for buy_qty; asset_dict needed: {'SYMBOL + USDT': ('SYMBOL', WALLETAMOUNT, BETSIZE, LOTSIZE)}
+    '''
     wallet_amount = asset_dict[asset][1]
     bet_size = asset_dict[asset][2]
     lot_size = asset_dict[asset][3]
 
     buy_qty = ((wallet_amount * bet_size / df.atr[-1]) // lot_size) * lot_size
+    '''
 
+    # New version for buy_qty; asset_dict needed: {'SYMBOL + USDT': ('SYMBOL', buy_qty)}
     if test_order == True:
         buy_order = client.create_test_order(symbol='BNBBTC', side=Client.SIDE_BUY, type=Client.ORDER_TYPE_MARKET,
                                              quantity=100)
